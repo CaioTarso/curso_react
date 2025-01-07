@@ -1,20 +1,23 @@
-const MovieCard = ({ movie: { imdbID, Year, Poster, Title, Type } }) => {
-    return (
-      <div className="movie" key={imdbID}>
-        <div>
-          <p>{Year}</p>
-        </div>
-  
-        <div>
-          <img src={Poster !== "N/A" ? Poster : "https://via.placeholder.com/400"} alt={Title} />
-        </div>
-  
-        <div>
-          <span>{Type}</span>
-          <h3>{Title}</h3>
-        </div>
+const MovieCard = ({ movie: { id, release_date, poster_path, title, media_type } }) => {
+  return (
+    <div className="movie" key={id}>
+      <div>
+        <p>{release_date ? release_date.split("-")[0] : "Ano desconhecido"}</p>
       </div>
-    );
-  }
-  
-  export default MovieCard;
+
+      <div>
+        <img
+          src={poster_path ? `https://image.tmdb.org/t/p/w500${poster_path}` : "https://via.placeholder.com/400"}
+          alt={title}
+        />
+      </div>
+
+      <div>
+        <span>{media_type}</span> 
+        <h3>{title}</h3>
+      </div>
+    </div>
+  );
+};
+
+export default MovieCard;

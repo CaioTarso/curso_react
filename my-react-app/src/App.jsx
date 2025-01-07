@@ -5,23 +5,31 @@ import searchicon from './search.svg'
 
 // 7a226c6f
 
-const API_URL = 'http://www.omdbapi.com/?apikey=7a226c6f'
+const API_URL = 'https://api.themoviedb.org/3/search/movie';
+const API_KEY = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NTJhMzA0YzE2ZmRhN2QzNmMxMWEzM2JlNzNmNmY0OSIsIm5iZiI6MTcyODY3NzA4OC40NTc4NzUsInN1YiI6IjY2N2IyZjdiOWEyMzkxMjUxOWU0NjhhMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.88BdLmUfZA85VLGhusWnsTu7xrh0POaqFoX5P9QQUBQ';
 
-const App = () =>   {
+const App = () => {
   const [movies, setMovies] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
   const searchMovies = async (title) => {
-   const response = await fetch(`${API_URL}&s=${title}`)
-   const data = await response.json()
+    try {
+      const response = await fetch(`${API_URL}?query=${title}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${API_KEY}`, // Certifique-se de usar crase aqui
+          'Content-Type': 'application/json',
+        },
+      });
+      
+      const data = await response.json();
 
-   setMovies(data.Search);
-  }
-
-  
-  useEffect(() => {
-    searchMovies('batman');
-  }, []);
+      // TMDB retorna resultados na propriedade "results"
+      setMovies(data.results || []);
+    } catch (error) {
+      console.error('Erro ao buscar filmes:', error);
+    }
+  };
 
   return (
     <div className="App">
