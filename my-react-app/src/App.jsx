@@ -6,7 +6,7 @@ import searchicon from './search.svg'
 // 7a226c6f
 
 const API_URL = 'https://api.themoviedb.org/3/search/movie';
-const API_KEY = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NTJhMzA0YzE2ZmRhN2QzNmMxMWEzM2JlNzNmNmY0OSIsIm5iZiI6MTcyODY3NzA4OC40NTc4NzUsInN1YiI6IjY2N2IyZjdiOWEyMzkxMjUxOWU0NjhhMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.88BdLmUfZA85VLGhusWnsTu7xrh0POaqFoX5P9QQUBQ';
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 const App = () => {
   const [movies, setMovies] = useState([]);
